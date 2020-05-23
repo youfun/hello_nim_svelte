@@ -15,7 +15,7 @@ template corsResp(code, message: untyped): untyped =
   mixin resp
   resp code, {"Access-Control-Allow-Origin": "*"}, message
 
-routes:
+router assets:
   get "/build/bundle.js":
     corsResp Http200, bundleJs
 
@@ -24,6 +24,9 @@ routes:
 
   get "/global.css":
     corsResp Http200, globalCss
+
+routes:
+  extend assets, ""
 
   get "/":
     resp """
