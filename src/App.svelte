@@ -1,4 +1,5 @@
 <script>
+  import SomeComponent from './SomeComponent.svelte';
   export let name;
 </script>
 
@@ -6,6 +7,7 @@
   <h1>Hello {name}!</h1>
   <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
   <input bind:value={name} placeholder="Your name here">
+  <SomeComponent imgUrl="https://media.giphy.com/media/3EiNpweH34XGoQcq9Q/giphy.gif" />
 </main>
 
 <style>

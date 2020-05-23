@@ -25,12 +25,13 @@ With all that set up, deploying with `git push heroku master` should be sufficie
 
 ## Local Dev
 
-You'll want two splits open, running these:
+To do local development, you can run:
 
 ```sh
-nimble run watch_svelte
+nimble dev
 ```
 
-```sh
-nimble run watch_web
-```
+This will:
+
+* Watch svelte files, rebuilding bundle and refreshing browser on changes detected
+* Watch nim files, restarting the server on changes detected
