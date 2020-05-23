@@ -26,3 +26,5 @@ routes:
 </body>
 </html>
 """
+
+runForever()
