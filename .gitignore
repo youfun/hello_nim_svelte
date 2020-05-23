@@ -12,9 +12,10 @@ nimcache/
 # direnv
 .envrc
 
-# misc
+# misc asset stuff
 node_modules/
 public/build/
+src/views/assets_file.nim
 
 # nimble binaries
 web
