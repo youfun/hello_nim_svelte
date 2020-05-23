@@ -1,26 +1,23 @@
+import asyncdispatch
 import jester
+import os
+import strutils
 
-const isHeroku* = false
+const isHeroku* = block:
+  const key = "IS_HEROKU"
+  existsEnv(key) and parseBool(getEnv key)
 
-router web:
-  get "/":
-    when isHeroku:
-      resp indexHtml
-    else:
-      # Ehhh this isn't awesome, but it works for now especially since it's
-      # just local dev that it affects.
-      redirect "/index.html"
+when isHeroku:
+  import ./views/assets_file
 
-  when isHeroku:
-    import ./views/assets_file
+  let bundleCss* = getAsset "public/build/bundle.css"
+  let bundleCssMap* = getAsset "public/build/bundle.css.map"
+  let bundleJs* = getAsset "public/build/bundle.js"
+  let bundleJsMap* = getAsset "public/build/bundle.js.map"
+  let globalCss* = getAsset "public/global.css"
+  let indexHtml* = getAsset "public/index.html"
 
-    let bundleCss* = getAsset "public/build/bundle.css"
-    let bundleCssMap* = getAsset "public/build/bundle.css.map"
-    let bundleJs* = getAsset "public/build/bundle.js"
-    let bundleJsMap* = getAsset "public/build/bundle.js.map"
-    let globalCss* = getAsset "public/global.css"
-    let indexHtml* = getAsset "public/index.html"
-
+  router web:
     get "/":
       resp indexHtml
 
@@ -38,3 +35,9 @@ router web:
 
     get "/global.css":
       resp Http200, {"Content-Type": "text/css"}, globalCss
+else:
+  router web:
+    get "/":
+      # Ehhh this isn't awesome, but it works for now especially since it's
+      # just local dev that it affects.
+      redirect "/index.html"
