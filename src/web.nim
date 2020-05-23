@@ -6,14 +6,12 @@ import sequtils
 import strutils
 
 import ./router_web
+import ./router_api
 
 let settings = newSettings()
-if existsEnv("PORT"):
-  settings.port = Port(parseInt(getEnv("PORT")))
-
-router api:
-  get "/":
-    resp Http200, "API endpoints here"
+block setPort:
+  const key = "PORT"
+  if existsEnv key: settings.port = Port parseInt(getEnv key)
 
 routes:
   extend web, ""
