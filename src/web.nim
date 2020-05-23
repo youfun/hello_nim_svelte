@@ -19,8 +19,14 @@ router assets:
   get "/build/bundle.js":
     resp Http200, {"Content-Type": "text/javascript"}, bundleJs
 
+  get "/build/bundle.js.map":
+    resp Http200, {"Content-Type": "application/json"}, bundleJsMap
+
   get "/build/bundle.css":
     resp Http200, {"Content-Type": "text/css"}, bundleCss
+
+  get "/build/bundle.css.map":
+    resp Http200, {"Content-Type": "application/json"}, bundleCssMap
 
   get "/global.css":
     resp Http200, {"Content-Type": "text/css"}, globalCss
