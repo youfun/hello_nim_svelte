@@ -22,7 +22,7 @@ task svelte, "Generate svelte bundle":
   exec "npm run build"
 
 task assets, "Generate packaged assets":
-  exec "echo src/views/assets_file.nim | xargs -t -I{} nimassets --dir=public --output={}"
+  exec "mkdir -vp src/views && echo src/views/assets_file.nim | xargs -t -I{} nimassets --dir=public --output={}"
 
 task watch_assets, "Watch assets in public/ and rebuild the nim assets file if changes occur":
   exec "find public -type f | entr nimble assets"
