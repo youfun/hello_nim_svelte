@@ -11,11 +11,11 @@ let settings = newSettings()
 if existsEnv("PORT"):
   settings.port = Port(parseInt(getEnv("PORT")))
 
-template corsResp(code, message: untyped): untyped =
-  mixin resp
-  resp code, {"Access-Control-Allow-Origin": "*"}, message
-
 router assets:
+  template corsResp(code, message: untyped): untyped =
+    mixin resp
+    resp code, {"Access-Control-Allow-Origin": "*"}, message
+
   get "/build/bundle.js":
     corsResp Http200, bundleJs
 
@@ -25,24 +25,12 @@ router assets:
   get "/global.css":
     corsResp Http200, globalCss
 
+router entrypoint:
+  get "/":
+    resp indexHtml
+
 routes:
   extend assets, ""
-
-  get "/":
-    resp """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Nim and Svelte</title>
-
-  <link rel='stylesheet' href='/global.css'>
-  <link rel='stylesheet' href='/build/bundle.css'>
-
-  <script defer src='/build/bundle.js'></script>
-</head>
-<body>
-</body>
-</html>
-"""
+  extend entrypoint, ""
 
 runForever()
