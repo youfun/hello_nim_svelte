@@ -35,6 +35,7 @@ when isHeroku:
 
     get "/global.css":
       resp Http200, {"Content-Type": "text/css"}, globalCss
+
 else:
   router web:
     get "/":
