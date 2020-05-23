@@ -5,8 +5,9 @@ import os
 import sequtils
 import strutils
 
-# task assets, "Generate packaged assets":
-#   exec "echo src/views/assets_file.nim | xargs -t -I{} nimassets --dir=public --output={}"
+let settings = newSettings()
+if existsEnv("PORT"):
+  settings.port = Port(parseInt(getEnv("PORT")))
 
 routes:
   get "/":
